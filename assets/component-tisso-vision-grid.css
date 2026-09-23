@@ -1,0 +1,402 @@
+/* ==========================================================================
+   Tisso Vision Grid — component styles
+   ========================================================================== */
+
+.tisso-grid-section {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+.tisso-grid-section__heading {
+  font-size: 2.2rem;
+  margin-bottom: 24px;
+}
+
+/* ---- Grid: 3 columns desktop, 2 columns mobile ---- */
+.tisso-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4px;
+}
+
+@media screen and (max-width: 749px) {
+  .tisso-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2px;
+  }
+}
+
+.tisso-grid__item {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  background: #f4f4f4;
+}
+
+.tisso-grid__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.tisso-grid__image--placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 8px;
+  color: #999;
+}
+
+.tisso-grid__placeholder-text {
+  font-size: 1.2rem;
+  padding: 0 10px;
+  text-align: center;
+}
+
+/* ---- "+" hotspot button ---- */
+.tisso-grid__hotspot {
+  position: absolute;
+  /* Position is per-block, set via the customizer (dot_top / dot_left
+     range settings) as CSS custom properties on .tisso-grid__item. */
+  top: var(--dot-top, 15%);
+  left: var(--dot-left, 85%);
+  transform: translate(-50%, -50%);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.9);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  line-height: 1;
+  color: #111;
+  transition: transform 0.15s ease, background 0.15s ease;
+}
+
+.tisso-grid__hotspot:hover,
+.tisso-grid__hotspot:focus-visible {
+  background: #fff;
+  transform: translate(-50%, -50%) scale(1.08);
+}
+
+.tisso-grid__hotspot.is-loading {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+@media screen and (max-width: 749px) {
+  .tisso-grid__hotspot {
+    width: 30px;
+    height: 30px;
+    font-size: 1.5rem;
+  }
+}
+
+/* ==========================================================================
+   Popup
+   ========================================================================== */
+
+.tisso-popup {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tisso-popup[hidden] {
+  display: none;
+}
+
+.tisso-popup__overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(20, 20, 20, 0.6);
+}
+
+.tisso-popup__panel {
+  position: relative;
+  background: #fff;
+  width: 340px;
+  max-width: calc(100vw - 32px);
+  max-height: calc(100vh - 64px);
+  overflow-y: auto;
+  padding: 32px 24px 24px;
+  box-sizing: border-box;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+}
+
+/* Fixed width/height footprint requested: keep panel a consistent
+   box regardless of content by giving it a min-height and letting
+   inner content scroll rather than resizing the shell. */
+@media screen and (min-width: 480px) {
+  .tisso-popup__panel {
+    min-height: 420px;
+  }
+}
+
+.tisso-popup__close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: none;
+  border: none;
+  font-size: 1.6rem;
+  line-height: 1;
+  cursor: pointer;
+  color: #333;
+  width: 32px;
+  height: 32px;
+}
+
+.tisso-popup__media {
+ display: flex;
+ gap: 8px;
+}
+
+.tisso-popup__media img {
+  width: 120px;
+    height: 140px;
+    object-fit: cover;
+}
+
+.tisso-popup__title {
+  font-size: 1.6rem;
+  font-weight: 300;
+  margin: 0 0 6px;
+}
+
+.tisso-popup__price {
+  font-size: 1.6rem;
+  margin: 0 0 0px;
+  font-weight: 400;
+  color: #000;
+}
+
+.tisso-popup__description {
+ font-size: 1.4rem;
+    font-weight: 300;
+    line-height: 1.5;
+    color: #000;
+    margin: 0 0 20px;
+    font-family: jost;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 4;
+    line-clamp: 4;
+    
+  
+}
+
+.tisso-popup__options {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.tisso-popup__option-label {
+  display: block;
+  font-size: 1.4rem;
+  font-weight: 400;
+  letter-spacing: 0.05em;
+  margin-bottom: 6px;
+  color: #333;
+}
+
+/* Swatch-style buttons for options with few values (e.g. color).
+   Segmented: buttons sit flush against each other sharing one border,
+   rather than separate gapped pills. */
+.tisso-popup__option-values {
+  display: flex;
+  border: 1px solid #ccc;
+}
+
+.tisso-popup__option-value {
+  flex: 1;
+  border: none;
+  border-right: 1px solid #ccc;
+  background: #fff;
+  padding: 8px 14px;
+  font-size: 1.8rem;
+  cursor: pointer;
+  min-width: 44px;
+  text-align: center;
+      font-family: "jost";
+
+  transition: background-color 0.18s ease, color 0.18s ease, box-shadow 0.18s ease;
+}
+
+.tisso-popup__option-value:last-child {
+  border-right: none;
+}
+
+/* Default (non-hue) selection: solid fill, as before — used for
+   option values that aren't literal color names (e.g. Frame Colour
+   values like "Walnut" or "Golden"). */
+.tisso-popup__option-value[aria-pressed="true"] {
+  background: #111;
+  color: #fff;
+}
+
+/* Hue-aware swatches: the value itself is a real, recognizable color
+   (or maps to one via the alias table in JS). The accent border shows
+   only while UNSELECTED; once selected the swatch turns solid black
+   like every other swatch, and the accent border goes away. */
+.tisso-popup__option-value--hue {
+  box-shadow: inset 4px 0 0 0 var(--swatch-accent, #999);
+}
+
+.tisso-popup__option-value--hue[aria-pressed="true"] {
+  box-shadow: none;
+}
+
+.tisso-popup__option-value:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+  text-decoration: line-through;
+}
+
+/* Custom dropdown, used when an option has many values (e.g. Size).
+   Trigger shows the current/placeholder value + chevron; the list
+   expands inline directly beneath it (not a native <select>) so it
+   can be styled and animated to match the design. */
+.tisso-popup__dropdown {
+  position: relative;
+}
+
+.tisso-popup__dropdown-trigger {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 10px 12px;
+  font-size: 1.3rem;
+  border: 1px solid #ccc;
+  background: #fff;
+  color: #111;
+  text-align: left;
+  cursor: pointer;
+      font-size: 16px;
+    font-family: "jost";
+}
+
+.tisso-popup__dropdown-chevron {
+  flex: none;
+  width: 8px;
+  height: 8px;
+  border-right: 2px solid #333;
+  border-bottom: 2px solid #333;
+  transform: rotate(45deg);
+  transition: transform 0.18s ease;
+}
+
+.tisso-popup__dropdown-trigger[aria-expanded="true"] .tisso-popup__dropdown-chevron {
+  transform: rotate(-135deg);
+}
+
+.tisso-popup__dropdown-list button {     font-size: 16px;
+    font-family: "jost"; }
+
+.tisso-popup__dropdown-list {
+  /* Positioned via inline styles at runtime (position: fixed; top;
+     left; width — see openDropdown() in the JS)*/
+  border: 1px solid #ccc;
+      height: 90px;
+  max-height: 180px;
+  overflow-y: auto;
+  background: #fff;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.15);
+  opacity: 0;
+  transform: translateY(-4px);
+  transition: opacity 0.15s ease, transform 0.15s ease;
+}
+
+.tisso-popup__dropdown-list.is-open {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.tisso-popup__dropdown-item {
+  display: block;
+  width: 100%;
+  padding: 10px 12px;
+  font-size: 1.3rem;
+  text-align: center;
+  background: #fff;
+  color: #111;
+  border: none;
+  border-top: 1px solid #eee;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.tisso-popup__dropdown-item:first-child {
+  border-top: none;
+}
+
+.tisso-popup__dropdown-item:hover:not(:disabled) {
+  background: #f5f5f5;
+}
+
+.tisso-popup__dropdown-item.is-selected {
+  font-weight: 600;
+  background: #f0f0f0;
+}
+
+.tisso-popup__dropdown-item:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  text-decoration: line-through;
+}
+
+.tisso-popup__error {
+  color: #c0392b;
+  font-size: 1.2rem;
+  margin: 0 0 12px;
+}
+
+.tisso-popup__submit {
+  width: 100%;
+  background: #111;
+  color: #fff;
+  border: none;
+  padding: 14px 16px;
+  font-size: 1.6rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+    font-family: "jost";
+    gap: 20px;
+}
+
+.tisso-popup__submit:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.tisso-popup__submit-arrow {
+  transition: transform 0.15s ease;
+}
+
+.tisso-popup__submit:not(:disabled):hover .tisso-popup__submit-arrow {
+  transform: translateX(4px);
+}
+
+/* Loading state */
+.tisso-popup__submit[data-loading="true"] span[data-tisso-submit-text]::after {
+  content: "\2026"; /* ellipsis */
+}
